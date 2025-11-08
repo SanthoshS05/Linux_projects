@@ -6,7 +6,7 @@ OBJ_DIR = obj
 BIN_DIR = bin
 
 # Files
-OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/tictactoe.o
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/tictactoe.o $(OBJ_DIR)/server.o $(OBJ_DIR)/client.o
 TARGET = $(BIN_DIR)/tictactoe
 
 # Default target

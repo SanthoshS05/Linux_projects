@@ -9,7 +9,7 @@ Author: Santhosh S <santhoshsuresh150@gmail.com>
 #include <stdio.h>
 #include "tictactoe.h"
 
-// Initialize board with spaces
+// Initialized board with spaces
 void initBoard(char board[BOARD_SIZE][BOARD_SIZE]) {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
@@ -46,7 +46,7 @@ int makeMove(char board[BOARD_SIZE][BOARD_SIZE], int pos, char symbol) {
         board[row][col] = symbol;
         return 1;
     }
-    return 0; // cell already occupied
+    return 0; 
 }
 
 // Check if given player has won
@@ -78,8 +78,40 @@ int isDraw(char board[BOARD_SIZE][BOARD_SIZE]) {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
             if (board[i][j] == ' ')
-                return 0; // at least one empty cell > not draw
+                return 0; 
         }
     }
-    return 1; // all filled > draw
+    return 1; 
+}
+
+void run_local_game() {
+    char board[BOARD_SIZE][BOARD_SIZE];
+    initBoard(board);
+    char current = 'X';
+    int pos;
+
+    while (1) {
+        printBoard(board);
+        printf("Player %c, enter position (1-9): ", current);
+        scanf("%d", &pos);
+
+        if (!makeMove(board, pos, current)) {
+            printf("Invalid move, try again!\n");
+            continue;
+        }
+
+        if (checkWin(board, current)) {
+            printBoard(board);
+            printf("Player %c wins!\n", current);
+            break;
+        }
+
+        if (isDraw(board)) {
+            printBoard(board);
+            printf("It's a draw!\n");
+            break;
+        }
+
+        current = (current == 'X') ? 'O' : 'X';
+    }
 }

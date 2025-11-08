@@ -1,44 +1,42 @@
+/*
+main.c
+-------
+Entry point for Tic Tac Toe project.
+Allows user to choose between Server, Client, or Local Two-Player mode.
+
+Author: Santhosh S <santhoshsuresh150@gmail.com>
+*/
+
 #include <stdio.h>
+#include <stdlib.h>
 #include "tictactoe.h"
 
 int main() {
-    char board[BOARD_SIZE][BOARD_SIZE];
-    char currentPlayer = 'X';
-    int position;
-    int filledCells = 0;   // track moves
+    int choice;
 
-    initBoard(board);
+    printf("=====================================\n");
+    printf("       Tic Tac Toe - Main Menu       \n");
+    printf("=====================================\n");
+    printf("1. Run as Server\n");
+    printf("2. Run as Client\n");
+    printf("3. Run Local 2-Player Game\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
 
-    printf("==== TIC TAC TOE ====\n");
-    printf("Player 1: X\nPlayer 2: O\n\n");
-
-    while (1) {
-        printBoard(board);
-        printf("Player %c, enter position (1-9): ", currentPlayer);
-        scanf("%d", &position);
-
-        if (!makeMove(board, position, currentPlayer)) {
-            printf("Invalid move! Try again.\n");
-            continue;
-        }
-
-        filledCells++;
-
-        if (checkWin(board, currentPlayer)) {
-            printBoard(board);
-            printf("Player %c wins!\n", currentPlayer);
+    switch (choice) {
+        case 1:
+            run_server();
             break;
-        }
-
-        if (filledCells == BOARD_SIZE * BOARD_SIZE) {
-            printBoard(board);
-            printf("It's a draw!\n");
+        case 2:
+            run_client();
             break;
-        }
-
-        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+        case 3:
+            run_local_game();
+            break;
+        default:
+            printf("Invalid choice!\n");
+            break;
     }
 
-    printf("Game Over.\n");
     return 0;
 }

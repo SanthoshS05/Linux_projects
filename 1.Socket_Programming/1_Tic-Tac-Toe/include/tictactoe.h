@@ -9,4 +9,8 @@ int makeMove(char board[BOARD_SIZE][BOARD_SIZE], int pos, char symbol);
 int checkWin(char board[BOARD_SIZE][BOARD_SIZE], char symbol);
 int isDraw(char board[BOARD_SIZE][BOARD_SIZE]);
 
+
+void run_server();
+void run_client();
+void run_local_game();
 #endif
