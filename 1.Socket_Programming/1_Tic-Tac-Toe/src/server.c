@@ -1,3 +1,11 @@
+/*
+server.c
+------------
+Contains funcitonalities for the server side game
+
+Author: Santhosh S <santhoshsuresh150@gmail.com>
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
