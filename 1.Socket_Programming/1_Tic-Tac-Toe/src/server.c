@@ -11,9 +11,37 @@ Author: Santhosh S <santhoshsuresh150@gmail.com>
 #include <unistd.h>
 #include <string.h>
 #include <arpa/inet.h>
+#include <netinet/in.h>
+#include <ifaddrs.h>
 #include "../include/tictactoe.h"
 
 #define PORT 8080
+
+void print_ipv4(){
+    struct ifaddrs *ifaddr, *ifa;
+    char ip[INET_ADDRSTRLEN];
+
+    if (getifaddrs(&ifaddr) == -1) {
+        perror("getifaddrs");
+        exit(EXIT_FAILURE);
+    }
+
+    for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next) {
+        if (ifa->ifa_addr == NULL)
+            continue;
+
+        if (ifa->ifa_addr->sa_family == AF_INET) {
+            void* addr = &((struct sockaddr_in *)ifa->ifa_addr)->sin_addr;
+
+            inet_ntop(AF_INET, addr, ip, sizeof(ip));
+            if (strcmp(ifa->ifa_name, "lo") != 0) { 
+                printf("Interface: %s\tIP: %s\n", ifa->ifa_name, ip);
+            }
+        }
+    }
+
+    freeifaddrs(ifaddr);
+}
 
 void run_server() {
     int server_fd, new_socket;
@@ -47,7 +75,8 @@ void run_server() {
         close(server_fd);
         exit(EXIT_FAILURE);
     }
-
+    printf("[SERVER]");
+    print_ipv4();
     printf("[SERVER] Waiting for client...\n");
 
     // 4. Accept

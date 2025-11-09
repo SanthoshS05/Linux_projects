@@ -18,11 +18,16 @@ Author: Santhosh S <santhoshsuresh150@gmail.com>
 void run_client() {
     int sock = 0;
     struct sockaddr_in serv_addr;
+    char server_ip[32];
     char board[BOARD_SIZE][BOARD_SIZE];
     char buffer[32];
     int move;
 
     initBoard(board);
+
+    // --- Get server IP address from user ---
+    printf("Enter server IP address: ");
+    scanf("%31s", server_ip); 
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         perror("Socket creation error");
@@ -32,13 +37,16 @@ void run_client() {
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
 
-    if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0) {
-        perror("Invalid address");
+    if (inet_pton(AF_INET, server_ip, &serv_addr.sin_addr) <= 0) {
+        perror("Invalid address / Address not supported");
+        close(sock);
         exit(EXIT_FAILURE);
     }
 
+    // --- Connect to server ---
     if (connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
         perror("Connection failed");
+        close(sock);
         exit(EXIT_FAILURE);
     }
 

@@ -56,7 +56,20 @@ Run:
    3. Run Local Game
     ```
 
+5. **Server Side**
+      
+   Server will Display the ip of its Device automatically
+   ```bash
+   [SERVER]Interface: wlp2s0       IP: <ipv4 of Server>
 
+   ```
+
+6. **Client Side**
+
+   ```bash
+   Enter server IP address: <Enter ipv4 addr of Server>
+
+   ```
 ## Contributors
 **Santhosh Suresh**  
 Email: santhoshsuresh150@gmail.com  
