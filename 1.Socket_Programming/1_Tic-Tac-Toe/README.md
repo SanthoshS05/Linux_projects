@@ -41,9 +41,10 @@ sudo apt install gcc make
 3. **Run the executable**:
 
 Run:
-```bash
-./tictactoe
-```
+   ```bash
+   cd bin
+   ./tictactoe
+   ```
 
 
    The server will wait for a client to connect.
